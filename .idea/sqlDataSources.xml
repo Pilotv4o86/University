@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DdlMappings">
+    <mapping uuid="f8d22e25-bc26-4210-93df-6ec724483a29" name="groups_db@localhost Mapping">
+      <data-sources db="1266adc2-320a-491c-b1a5-c53c3bdfa8fd" />
+      <scope>
+        <node kind="schema" qname="groups_db" />
+      </scope>
+    </mapping>
+  </component>
+</project>
