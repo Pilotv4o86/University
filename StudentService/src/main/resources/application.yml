@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: StudentService
+
+  datasource:
+    url: jdbc:mysql://localhost/students_db
+    username: root
+    password: admin
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+      registerWithEureka: true
+      fetchRegistry: true
+
+server:
+  port: 8081

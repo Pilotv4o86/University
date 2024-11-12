@@ -1,8 +1,9 @@
 package org.example.groupservice.service;
 
 import lombok.RequiredArgsConstructor;
-import org.example.groupservice.exceptions.DuplicateGroupException;
-import org.example.groupservice.exceptions.GroupNotFoundException;
+import org.example.groupservice.dto.StudentResponse;
+import org.example.groupservice.exception.DuplicateGroupException;
+import org.example.groupservice.exception.GroupNotFoundException;
 import org.example.groupservice.mapper.GroupMapper;
 import org.example.groupservice.repository.GroupRepository;
 import org.example.groupservice.dto.GroupDto;
@@ -16,6 +17,7 @@ import java.util.List;
 public class GroupService
 {
     private final GroupRepository groupRepository;
+    private final StudentService studentService;
     private final GroupMapper groupMapper;
 
     public List<GroupDto> findAll() {
@@ -38,7 +40,9 @@ public class GroupService
     {
         groupRepository.findById(id).orElseThrow(() ->
                 new GroupNotFoundException("Group not found with id: " + id));
+        studentService.deleteAllStudents(id);
         groupRepository.deleteById(id);
+
     }
 
     public GroupDto update(Integer id, GroupDto updatedGroup)
@@ -59,4 +63,8 @@ public class GroupService
                 new GroupNotFoundException("Group not found with id: " + id)));
     }
 
+    public List<StudentResponse> allStudents(Integer groupId)
+    {
+        return studentService.getAllStudents(groupId);
+    }
   }

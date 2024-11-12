@@ -1,4 +1,4 @@
-package org.example.groupservice.exceptions;
+package org.example.groupservice.exception;
 
 import org.example.groupservice.controllers.GroupController;
 import org.springframework.http.HttpStatus;

@@ -2,6 +2,7 @@ package org.example.groupservice.controllers;
 
 import lombok.AllArgsConstructor;
 import org.example.groupservice.dto.GroupDto;
+import org.example.groupservice.dto.StudentResponse;
 import org.example.groupservice.service.GroupService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -54,5 +55,11 @@ public class GroupController
     public ResponseEntity<GroupDto> getById(@PathVariable Integer groupId)
     {
         return ResponseEntity.ok(groupService.findById(groupId));
+    }
+
+    @GetMapping("/{groupId}/students/all-students")
+    public ResponseEntity<List<StudentResponse>> getAllStudents(@PathVariable Integer groupId)
+    {
+        return ResponseEntity.ok(groupService.allStudents(groupId));
     }
 }
