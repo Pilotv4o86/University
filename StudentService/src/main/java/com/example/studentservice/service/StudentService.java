@@ -1,6 +1,7 @@
 package com.example.studentservice.service;
 
-import com.example.studentservice.dto.StudentDto;
+import com.example.studentservice.dto.StudentRequest;
+import com.example.studentservice.dto.StudentResponse;
 import com.example.studentservice.exception.StudentNotFoundException;
 import com.example.studentservice.mapper.StudentMapper;
 import com.example.studentservice.repository.StudentRepository;
@@ -17,48 +18,42 @@ public class StudentService {
     private final StudentRepository studentRepository;
     private final StudentMapper studentMapper;
 
-    public List<StudentDto> findAllByGroupId(Integer groupId) {
-        return studentRepository.findAllByGroupId(groupId)
-                .stream()
-                .map(studentMapper::toDto)
-                .toList();
+    public List<StudentResponse> findAllByGroupId(Long groupId) {
+        return studentMapper.toStudentResponseList(studentRepository.findAllByGroupId(groupId));
     }
 
-    public StudentDto create(Integer groupId,
-                             StudentDto studentDto)
-    {
-        studentDto.setGroupId(groupId);
-        Student student = studentMapper.toStudent(studentDto);
-        return studentMapper.toDto(studentRepository.save(student));
+    public StudentResponse create(Long groupId,
+                                  StudentRequest studentRequest) {
+        Student student = studentMapper.toStudent(studentRequest);
+        student.setGroupId(groupId);
+        student.setId(null);
+        return studentMapper.toStudentResponse(studentRepository.save(student));
     }
 
-    public StudentDto update(Integer id, Integer groupId, StudentDto studentDto)
-    {
-        Student oldStudent = studentRepository.findByIdAndGroupId(id, groupId).orElseThrow(() ->
+    public StudentResponse update(Long id,
+                                  StudentRequest studentRequest) {
+        Student oldStudent = studentRepository.findById(id).orElseThrow(() ->
                 new StudentNotFoundException("Student not found with id: " + id));
 
-        studentMapper.copyFields(oldStudent, studentDto);
-        return studentMapper.toDto(studentRepository.save(oldStudent));
+        studentMapper.copyFields(oldStudent, studentRequest);
+        return studentMapper.toStudentResponse(studentRepository.save(oldStudent));
     }
 
-    public void delete(Integer id, Integer groupId)
-    {
-        if (!studentRepository.existsByIdAndGroupId(id,groupId))
-        {
+    public void delete(Long id) {
+        if (!studentRepository.existsById(id)) {
             throw new StudentNotFoundException("Student not found with id: " + id);
         }
 
-        studentRepository.deleteByIdAndGroupId(id, groupId);
+        studentRepository.deleteById(id);
     }
 
-    public void deleteAllByGroupId(Integer groupId)
-    {
+    public void deleteAllByGroupId(Long groupId) {
         studentRepository.deleteAllByGroupId(groupId);
     }
 
-    public StudentDto getById(Integer id) {
+    public StudentResponse getByIdAndGroupId(Long id, Long groupId) {
         Student student = studentRepository.findById(id).orElseThrow(() ->
                 new StudentNotFoundException("Student not found with id: " + id));
-        return studentMapper.toDto(student);
+        return studentMapper.toStudentResponse(student);
     }
 }

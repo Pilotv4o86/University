@@ -1,28 +1,42 @@
 package com.example.studentservice.mapper;
 
-import com.example.studentservice.dto.StudentDto;
+import com.example.studentservice.dto.StudentRequest;
+import com.example.studentservice.dto.StudentResponse;
 import com.example.studentservice.model.Student;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.Optional;
+
 @Component
 public class StudentMapper
 {
-    private ModelMapper modelMapper = new ModelMapper();
+    private final ModelMapper modelMapper = new ModelMapper();
 
-    public StudentDto toDto(Student student)
+    public StudentResponse toStudentResponse(Student student)
     {
-        return modelMapper.map(student, StudentDto.class);
+        return modelMapper.map(student, StudentResponse.class);
     }
 
-    public Student toStudent(StudentDto studentDto)
-    {
-        return modelMapper.map(studentDto, Student.class);
-    }
 
-    public void copyFields(Student student, StudentDto studentDto)
+    public Student toStudent(StudentRequest studentRequest)
     {
         modelMapper.getConfiguration().setSkipNullEnabled(true);
-        modelMapper.map(student, studentDto);
+        return modelMapper.map(studentRequest, Student.class);
+    }
+
+    public List<StudentResponse> toStudentResponseList(Optional<List<Student>> students) {
+        return students
+                .orElse(List.of()) // Если Optional пустой, возвращаем пустой список
+                .stream()
+                .map(this::toStudentResponse)
+                .toList();
+    }
+
+    public void copyFields(Student student, StudentRequest studentRequest)
+    {
+        modelMapper.getConfiguration().setSkipNullEnabled(true);
+        modelMapper.map(studentRequest, student);
     }
 }

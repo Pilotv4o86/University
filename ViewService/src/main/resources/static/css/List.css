@@ -1,0 +1,175 @@
+/* Общие стили */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    text-align: center;
+    margin: 20px;
+}
+
+h1 {
+    font-size: 2em;
+    color: #333;
+}
+
+/* Таблица */
+table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+    color: #555;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+/* Ссылки */
+a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Действия */
+td a {
+    margin: 0 5px;
+}
+
+/* Общие стили для кнопок */
+button {
+    font-size: 14px;
+    padding: 5px 10px;
+    margin: 0 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+.btn-view {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.btn-edit {
+    background-color: #ffc107;
+    color: #fff;
+}
+
+.btn-delete {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+/* Отдельно для inline форм */
+form {
+    display: inline;
+}
+
+/* Общие стили для кнопок */
+button {
+    font-size: 14px;
+    padding: 8px 12px;
+    margin: 5px 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+/* Стили кнопок для разных действий */
+.btn-back {
+    background-color: #6c757d;
+    color: #fff;
+    margin-right: 10px;
+}
+
+.btn-create {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.btn-edit {
+    background-color: #ffc107;
+    color: #fff;
+}
+
+.btn-delete {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+/* Стили таблицы */
+table {
+    width: 90%;
+    margin: 20px auto;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Стили заголовка */
+.header {
+    width: 90%;
+    margin: 20px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h1 {
+    margin: 0;
+    font-size: 24px;
+}

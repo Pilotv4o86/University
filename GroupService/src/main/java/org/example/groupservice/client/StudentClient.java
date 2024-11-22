@@ -1,4 +1,4 @@
-package org.example.groupservice.clients;
+package org.example.groupservice.client;
 
 import org.example.groupservice.dto.StudentResponse;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -12,7 +12,7 @@ import java.util.List;
 public interface StudentClient
 {
     @DeleteMapping("/{groupId}/students/all-delete")
-    void deleteAllStudents(@PathVariable("groupId") Integer groupId);
+    void deleteAllStudents(@PathVariable("groupId") Long groupId);
     @GetMapping("/{groupId}/students/all-students")
-    List<StudentResponse> allStudents(@PathVariable("groupId") Integer groupId);
+    List<StudentResponse> allStudents(@PathVariable("groupId") Long groupId);
 }

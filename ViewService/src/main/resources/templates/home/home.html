@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home Page</title>
+    <link rel="stylesheet" href="/css/List.css">
+</head>
+<body>
+<h1>Welcome to the Group and Student Management System</h1>
+<p>Manage your groups and students efficiently!</p>
+<form th:action="@{/university/groups/all-groups}" th:method="GET" style="display:inline;">
+    <button type="submit" class="btn btn-view">View Groups</button>
+</form>
+
+</body>
+</html>

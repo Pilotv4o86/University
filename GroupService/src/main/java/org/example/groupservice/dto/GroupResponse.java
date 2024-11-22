@@ -1,11 +1,10 @@
-package com.example.studentservice.dto;
+package org.example.groupservice.dto;
 
 import lombok.Data;
 
-import java.util.List;
 
 @Data
-public class GroupDto
+public class GroupResponse
 {
     private Integer id;
     private String name;

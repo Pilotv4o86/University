@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Groups</title>
+    <link rel="stylesheet" href="/css/List.css"> <!-- Подключаем CSS -->
+</head>
+<body>
+<div class="header">
+    <h1>Groups List</h1>
+    <form th:action="@{/university/groups/save}" th:method="GET" style="display:inline;">
+        <button type="submit" class="btn btn-create">Create New Group</button>
+    </form>
+</div>
+<table>
+    <thead>
+    <tr>
+        <th>Course</th>
+        <th>Name</th>
+        <th>Form of Education</th>
+        <th>Speciality</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="group : ${groups}">
+        <td th:text="${group.course}"></td>
+        <td th:text="${group.name}"></td>
+        <td th:text="${group.formOfEducation}"></td>
+        <td th:text="${group.speciality}"></td>
+        <td>
+            <form th:action="@{/university/{groupId}/students/all-students(groupId=${group.id})}" th:method="GET" style="display:inline;">
+                <button type="submit" class="btn btn-view">View Students</button>
+            </form>
+            <form th:action="@{/university/groups/{groupId}/edit(groupId=${group.id})}" th:method="GET" style="display:inline;">
+                <button type="submit" class="btn btn-edit">Edit</button>
+            </form>
+            <form th:action="@{/university/groups/{groupId}/delete(groupId=${group.id})}" th:method="DELETE" style="display:inline;">
+                <button type="submit" class="btn btn-delete">Delete</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

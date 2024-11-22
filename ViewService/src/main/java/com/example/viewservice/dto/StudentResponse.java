@@ -1,12 +1,12 @@
-package com.example.studentservice.dto;
+package com.example.viewservice.dto;
 import lombok.Data;
 
 import java.time.LocalDate;
 
 @Data
-public class StudentDto
+public class StudentResponse
 {
-    private Integer id;
+    private Long id;
     private String surname;
     private String firstName;
     private String patronymic;

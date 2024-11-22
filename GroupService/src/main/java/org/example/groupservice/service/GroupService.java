@@ -1,12 +1,13 @@
 package org.example.groupservice.service;
 
 import lombok.RequiredArgsConstructor;
+import org.example.groupservice.dto.GroupResponse;
 import org.example.groupservice.dto.StudentResponse;
 import org.example.groupservice.exception.DuplicateGroupException;
 import org.example.groupservice.exception.GroupNotFoundException;
 import org.example.groupservice.mapper.GroupMapper;
 import org.example.groupservice.repository.GroupRepository;
-import org.example.groupservice.dto.GroupDto;
+import org.example.groupservice.dto.GroupRequest;
 import org.example.groupservice.model.Group;
 import org.springframework.stereotype.Service;
 
@@ -20,50 +21,44 @@ public class GroupService
     private final StudentService studentService;
     private final GroupMapper groupMapper;
 
-    public List<GroupDto> findAll() {
+    public List<GroupResponse> findAll() {
         return groupRepository.findAll().stream()
-                .map(groupMapper::toDto).toList();
+                .map(groupMapper::toResponse).toList();
     }
 
-    public GroupDto create(GroupDto groupDto)
+    public GroupResponse create(GroupRequest groupRequest)
     {
-        Group group = groupMapper.toGroup(groupDto);
+        Group group = groupMapper.toGroup(groupRequest);
         if (groupRepository.findByName(group.getName()).isPresent())
         {
             throw new DuplicateGroupException("Group with " + group.getName() + " already exists");
         }
         groupRepository.save(group);
-        return groupMapper.toDto(group);
+        return groupMapper.toResponse(group);
     }
 
-    public void delete(Integer id)
+    public void delete(Long groupId)
     {
-        groupRepository.findById(id).orElseThrow(() ->
-                new GroupNotFoundException("Group not found with id: " + id));
-        studentService.deleteAllStudents(id);
-        groupRepository.deleteById(id);
+        groupRepository.findById(groupId).orElseThrow(() ->
+                new GroupNotFoundException("Group not found with id: " + groupId));
+        studentService.deleteAllStudents(groupId);
+        groupRepository.deleteById(groupId);
 
     }
 
-    public GroupDto update(Integer id, GroupDto updatedGroup)
+    public GroupResponse update(Long id, GroupRequest updatedGroup)
     {
         Group oldGroup = groupRepository.getReferenceById(id);
         groupMapper.copyFields(oldGroup, updatedGroup);
-
-        if (groupRepository.findByName(updatedGroup.getName()).isPresent())
-        {
-            throw new DuplicateGroupException("Group with " + updatedGroup.getName() + " already exists");
-        }
-
-        return groupMapper.toDto(groupRepository.save(oldGroup));
+        return groupMapper.toResponse(groupRepository.save(oldGroup));
     }
 
-    public GroupDto findById(Integer id) {
-        return groupMapper.toDto(groupRepository.findById(id).orElseThrow(() ->
+    public GroupResponse findById(Long id) {
+        return groupMapper.toResponse(groupRepository.findById(id).orElseThrow(() ->
                 new GroupNotFoundException("Group not found with id: " + id)));
     }
 
-    public List<StudentResponse> allStudents(Integer groupId)
+    public List<StudentResponse> allStudents(Long groupId)
     {
         return studentService.getAllStudents(groupId);
     }

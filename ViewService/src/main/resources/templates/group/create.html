@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Create group</title>
+  <link rel="stylesheet" th:href="@{/css/CreateAndEdit.css}">
+</head>
+<body>
+<h1>Create group</h1>
+
+<form th:action="@{/university/groups/create}" th:object="${group}" th:method="POST">
+  <div>
+    <label for="name">Название группы</label>
+    <input type="text" id="name" th:field="*{name}" />
+    <div th:if="${#fields.hasErrors('name')}" class="error">
+      <span th:errors="*{name}"></span>
+    </div>
+  </div>
+  <div>
+    <label for="course">Курс</label>
+    <select id="course" th:field="*{course}">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+    </select>
+    <div th:if="${#fields.hasErrors('course')}" class="error">
+      <span th:errors="*{course}"></span>
+    </div>
+  </div>
+  <div>
+    <label for="speciality">Специальность</label>
+    <input type="text" id="speciality" th:field="*{speciality}" />
+    <div th:if="${#fields.hasErrors('speciality')}" class="error">
+      <span th:errors="*{speciality}"></span>
+    </div>
+  </div>
+  <div>
+    <label for="formOfEducation">Форма образования</label>
+    <select id="formOfEducation" th:field="*{formOfEducation}">
+      <option value="Очная">Очная</option>
+      <option value="Заочная">Заочная</option>
+    </select>
+    <div th:if="${#fields.hasErrors('formOfEducation')}" class="error">
+      <span th:errors="*{formOfEducation}"></span>
+    </div>
+  </div>
+  <button type="submit">Сохранить</button>
+</form>
+</body>
+</html>

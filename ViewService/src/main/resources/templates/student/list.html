@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Students</title>
+    <link rel="stylesheet" href="/css/List.css">
+</head>
+<body>
+<div class="header">
+    <div class="navigation">
+        <form th:action="@{/university/groups/all-groups}" th:method="GET" style="display:inline;">
+            <button type="submit" class="btn btn-back">Back to Groups</button>
+        </form>
+    </div>
+    <h1>Students List</h1>
+    <form th:action="@{/university/{groupId}/students/save(groupId=${groupId})}" th:method="GET" style="display:inline;">
+        <button type="submit" class="btn btn-create">Create Student</button>
+    </form>
+</div>
+
+<table>
+    <thead>
+    <tr>
+        <th>Surname</th>
+        <th>First Name</th>
+        <th>Patronymic</th>
+        <th>Gender</th>
+        <th>Birthday</th>
+        <th>Form of Education</th>
+        <th>Number of Failed Exams</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="student : ${students}">
+        <td th:text="${student.surname}"></td>
+        <td th:text="${student.firstName}"></td>
+        <td th:text="${student.patronymic}"></td>
+        <td th:text="${student.gender}"></td>
+        <td th:text="${student.birthday}"></td>
+        <td th:text="${student.formOfEducation}"></td>
+        <td th:text="${student.numberOfFailedExams}"></td>
+        <td>
+            <form th:action="@{/university/groups/{groupId}/students/{studentId}/edit(groupId=${groupId},studentId=${student.id})}" th:method="GET" style="display:inline;">
+                <button type="submit" class="btn btn-edit">Edit</button>
+            </form>
+            <form th:action="@{/university/groups/{groupId}/students/{studentId}/delete(groupId=${groupId},studentId=${student.id})}" th:method="DELETE" style="display:inline;">
+                <button type="submit" class="btn btn-delete">Delete</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

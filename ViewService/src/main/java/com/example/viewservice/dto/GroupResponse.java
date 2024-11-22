@@ -1,12 +1,13 @@
-package org.example.groupservice.dto;
+package com.example.viewservice.dto;
 
 import lombok.Data;
 
+import java.util.List;
 
 @Data
-public class GroupDto
+public class GroupResponse
 {
-    private Integer id;
+    private Long id;
     private String name;
     private Integer course;
     private String speciality;

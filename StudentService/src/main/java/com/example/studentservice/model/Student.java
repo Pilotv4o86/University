@@ -16,7 +16,7 @@ public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     private String surname;
     private String firstName;
     private String patronymic;
@@ -24,6 +24,6 @@ public class Student {
     private LocalDate birthday;
     private String formOfEducation;
     private Integer numberOfFailedExams;
-    private Integer groupId;
+    private Long groupId;
 
 }
