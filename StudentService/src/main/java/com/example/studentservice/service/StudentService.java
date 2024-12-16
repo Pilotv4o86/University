@@ -32,10 +32,10 @@ public class StudentService {
 
     public StudentResponse update(Long id,
                                   StudentRequest studentRequest) {
-        Student oldStudent = studentRepository.findById(id).orElseThrow(() ->
-                new StudentNotFoundException("Student not found with id: " + id));
+        Student oldStudent = studentRepository.getReferenceById(id);
 
         studentMapper.copyFields(oldStudent, studentRequest);
+        oldStudent.setId(id);
         return studentMapper.toStudentResponse(studentRepository.save(oldStudent));
     }
 
