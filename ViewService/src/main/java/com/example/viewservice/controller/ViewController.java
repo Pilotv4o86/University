@@ -21,7 +21,7 @@ import java.util.List;
 public class ViewController {
     private final ViewService viewService;
 
-    @GetMapping("")
+    @GetMapping("/home")
     public String home() {
         return "home/home";
     }
@@ -79,6 +79,7 @@ public class ViewController {
     @GetMapping("/{groupId}/students/all-students")
     public String listStudents(@PathVariable Long groupId, Model model) {
         List<StudentResponse> students = viewService.getAllStudents(groupId);
+        model.addAttribute("group", viewService.findGroupById(groupId));
         model.addAttribute("students", students);
         return "student/list";
     }

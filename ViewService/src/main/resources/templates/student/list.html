@@ -11,7 +11,7 @@
             <button type="submit" class="btn btn-back">Back to Groups</button>
         </form>
     </div>
-    <h1>Students List</h1>
+    <h1 th:text="'Students List ' + ${group.name}"></h1>
     <form th:action="@{/university/{groupId}/students/save(groupId=${groupId})}" th:method="GET" style="display:inline;">
         <button type="submit" class="btn btn-create">Create Student</button>
     </form>
