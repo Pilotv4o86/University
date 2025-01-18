@@ -12,21 +12,26 @@ import java.util.List;
 @FeignClient(name = "StudentService")
 public interface StudentClient {
 
-    @PostMapping("/{groupId}/students/create")
-    StudentResponse create(@PathVariable Long groupId, @RequestBody StudentRequest studentRequest);
+    @PostMapping("/{groupName}/students/create")
+    StudentResponse create(@PathVariable String groupName,
+                           @RequestBody StudentRequest studentRequest);
 
-    @GetMapping("/{groupId}/students/all-students")
-    List<StudentResponse> allStudents(@PathVariable Long groupId);
+    @GetMapping("/{groupName}/students/all-students")
+    List<StudentResponse> allStudents(@PathVariable String groupName);
 
-    @GetMapping("/{groupId}/students/{id}")
-    StudentResponse findByIdAndGroupId(@PathVariable Long id, @PathVariable Long groupId);
+    @GetMapping("/{groupName}/students/{id}")
+    StudentResponse getByIdAndGroupName(@PathVariable Long id,
+                                        @PathVariable String groupName);
 
-    @PutMapping("/{groupId}/students/{id}/update")
-    StudentResponse update(@PathVariable Long id, @PathVariable Long groupId, @RequestBody StudentRequest studentRequest);
+    @PutMapping("/{groupName}/students/{id}/update")
+    StudentResponse update(@PathVariable Long id,
+                           @PathVariable String groupName,
+                           @RequestBody StudentRequest studentRequest);
 
     @DeleteMapping("/{groupId}/students/all-delete")
     void deleteAllStudents(@PathVariable Long groupId);
 
     @DeleteMapping("/{groupId}/students/{id}/delete")
-    void delete(@PathVariable Long id, @PathVariable Long groupId);
+    void delete(@PathVariable Long id,
+                @PathVariable Long groupId);
 }

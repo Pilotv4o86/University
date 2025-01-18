@@ -5,34 +5,33 @@ import com.example.studentservice.dto.StudentResponse;
 import com.example.studentservice.service.StudentService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
 
-@Controller
-@RequestMapping("/{groupId}/students")
+@RestController
+@RequestMapping("/{groupName}/students")
 @AllArgsConstructor
 public class StudentController {
     private final StudentService studentService;
 
     @GetMapping("/all-students")
-    public ResponseEntity<List<StudentResponse>> getAllStudents(@PathVariable Long groupId) {
-        return ResponseEntity.ok(studentService.findAllByGroupId(groupId));
+    public ResponseEntity<List<StudentResponse>> getAllStudents(@PathVariable String groupName) {
+        return ResponseEntity.ok(studentService.findAllByGroupName(groupName));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<StudentResponse> getStudentByIdAndGroupId(@PathVariable Long id,
-                                                                    @PathVariable Long groupId) {
-        return ResponseEntity.ok(studentService.getByIdAndGroupId(id, groupId));
+    public ResponseEntity<StudentResponse> getStudentByIdAndGroupName(@PathVariable Long id,
+                                                                      @PathVariable String groupName) {
+        return ResponseEntity.ok(studentService.getByIdAndGroupName(id, groupName));
     }
 
     @PostMapping("/create")
-    public ResponseEntity<StudentResponse> create(@PathVariable Long groupId,
+    public ResponseEntity<StudentResponse> create(@PathVariable String groupName,
                                                   @RequestBody StudentRequest studentRequest) {
-        StudentResponse savedStudent = studentService.create(groupId, studentRequest);
+        StudentResponse savedStudent = studentService.create(groupName, studentRequest);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
                 .buildAndExpand(savedStudent.getId())
@@ -53,8 +52,8 @@ public class StudentController {
     }
 
     @DeleteMapping("/all-delete")
-    public ResponseEntity<Void> deleteAll(@PathVariable Long groupId) {
-        studentService.deleteAllByGroupId(groupId);
+    public ResponseEntity<Void> deleteAll(@PathVariable String groupName) {
+        studentService.deleteAllByGroupName(groupName);
         return ResponseEntity.noContent().build();
     }
 }

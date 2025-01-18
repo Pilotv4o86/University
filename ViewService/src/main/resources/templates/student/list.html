@@ -12,7 +12,7 @@
         </form>
     </div>
     <h1 th:text="'Students List ' + ${group.name}"></h1>
-    <form th:action="@{/university/{groupId}/students/save(groupId=${groupId})}" th:method="GET" style="display:inline;">
+    <form th:action="@{/university/{groupName}/students/save(groupName=${groupName})}" th:method="GET" style="display:inline;">
         <button type="submit" class="btn btn-create">Create Student</button>
     </form>
 </div>
@@ -40,10 +40,10 @@
         <td th:text="${student.formOfEducation}"></td>
         <td th:text="${student.numberOfFailedExams}"></td>
         <td>
-            <form th:action="@{/university/{groupId}/students/{studentId}/edit(groupId=${groupId},studentId=${student.id})}" th:method="GET" style="display:inline;">
+            <form th:action="@{/university/{groupName}/students/{studentId}/edit(groupName=${groupName},studentId=${student.id})}" th:method="GET" style="display:inline;">
                 <button type="submit" class="btn btn-edit">Edit</button>
             </form>
-            <form th:action="@{/university/{groupId}/students/{studentId}/delete(groupId=${groupId},studentId=${student.id})}" th:method="DELETE" style="display:inline;">
+            <form th:action="@{/university/{groupName}/students/{studentId}/delete(groupName=${groupName},studentId=${student.id})}" th:method="DELETE" style="display:inline;">
                 <button type="submit" class="btn btn-delete">Delete</button>
             </form>
         </td>

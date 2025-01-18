@@ -24,6 +24,6 @@ public class Student {
     private LocalDate birthday;
     private String formOfEducation;
     private Integer numberOfFailedExams;
-    private Long groupId;
+    private String groupName;
 
 }

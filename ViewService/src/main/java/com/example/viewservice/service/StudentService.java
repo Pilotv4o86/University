@@ -14,23 +14,26 @@ public class StudentService {
 
     private StudentClient studentClient;
 
-    public StudentResponse create(Long groupId, StudentRequest studentRequest) {
-        return studentClient.create(groupId, studentRequest);
+    public StudentResponse create(String groupName, StudentRequest studentRequest) {
+        return studentClient.create(groupName, studentRequest);
     }
 
-    public List<StudentResponse> getAllStudents(Long groupId) {
-        return studentClient.allStudents(groupId);
+    public List<StudentResponse> getAllStudents(String groupName) {
+        return studentClient.allStudents(groupName);
     }
 
-    public StudentResponse findByIdAndGroupId(Long id, Long groupId) {
-        return studentClient.findByIdAndGroupId(id, groupId);
+    public StudentResponse getByIdAndGroupName(Long id, String groupName) {
+        return studentClient.getByIdAndGroupName(id, groupName);
     }
 
-    public StudentResponse update(Long id, Long groupId, StudentRequest studentRequest) {
-        return studentClient.update(id, groupId, studentRequest);
+    public StudentResponse update(Long id,
+                                  String groupName,
+                                  StudentRequest studentRequest) {
+        return studentClient.update(id, groupName, studentRequest);
     }
 
-    public void deleteById(Long id, Long groupId) {
+    public void deleteById(Long id,
+                           Long groupId) {
         studentClient.delete(id, groupId);
     }
 }

@@ -10,27 +10,26 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class GroupService
-{
+public class GroupService {
     private GroupClient groupClient;
-    public List<GroupResponse> getAllGroups()
-    {
+
+    public List<GroupResponse> getAllGroups() {
         return groupClient.getAllGroups();
     }
-    public GroupResponse getGroupById(Long id)
-    {
-        return groupClient.getGroupById(id);
+
+    public GroupResponse getGroupByName(String groupName) {
+        return groupClient.getGroupByName(groupName);
     }
-    public GroupResponse create(GroupRequest groupRequest)
-    {
+
+    public GroupResponse create(GroupRequest groupRequest) {
         return groupClient.create(groupRequest);
     }
-    public GroupResponse update(Long id, GroupRequest groupRequest)
-    {
-        return groupClient.update(id, groupRequest);
+
+    public GroupResponse update(String groupName, GroupRequest groupRequest) {
+        return groupClient.update(groupName, groupRequest);
     }
-    public void delete(Long id)
-    {
-        groupClient.delete(id);
+
+    public void delete(String groupName) {
+        groupClient.delete(groupName);
     }
 }

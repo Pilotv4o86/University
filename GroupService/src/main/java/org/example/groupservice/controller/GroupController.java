@@ -1,4 +1,4 @@
-package org.example.groupservice.controllers;
+package org.example.groupservice.controller;
 
 import lombok.AllArgsConstructor;
 import org.example.groupservice.dto.GroupRequest;
@@ -15,19 +15,16 @@ import java.util.List;
 @RestController
 @RequestMapping("/groups")
 @AllArgsConstructor
-public class GroupController
-{
+public class GroupController {
     private GroupService groupService;
 
     @GetMapping("/all-groups")
-    public ResponseEntity<List<GroupResponse>> getAllGroups()
-    {
+    public ResponseEntity<List<GroupResponse>> getAllGroups() {
         return ResponseEntity.ok(groupService.findAll());
     }
 
     @PostMapping("/create")
-    public ResponseEntity<GroupResponse> create(@RequestBody GroupRequest groupRequest)
-    {
+    public ResponseEntity<GroupResponse> create(@RequestBody GroupRequest groupRequest) {
 
         GroupResponse savedGroupDto = groupService.create(groupRequest);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
@@ -38,29 +35,25 @@ public class GroupController
 
     }
 
-    @DeleteMapping("/{groupId}/delete")
-    public ResponseEntity<Void> delete(@PathVariable Long groupId)
-    {
-        groupService.delete(groupId);
+    @DeleteMapping("/{groupName}/delete")
+    public ResponseEntity<Void> delete(@PathVariable String groupName) {
+        groupService.delete(groupName);
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/{groupId}/update")
-    public ResponseEntity<GroupResponse> update(@PathVariable Long groupId,
-                                               @RequestBody GroupRequest groupRequest)
-    {
-        return ResponseEntity.accepted().body(groupService.update(groupId, groupRequest));
+    @PutMapping("/{groupName}/update")
+    public ResponseEntity<GroupResponse> update(@PathVariable String groupName,
+                                                @RequestBody GroupRequest groupRequest) {
+        return ResponseEntity.accepted().body(groupService.update(groupName, groupRequest));
     }
 
-    @GetMapping("/{groupId}")
-    public ResponseEntity<GroupResponse> getById(@PathVariable Long groupId)
-    {
-        return ResponseEntity.ok(groupService.findById(groupId));
+    @GetMapping("/{groupName}")
+    public ResponseEntity<GroupResponse> getByName(@PathVariable String groupName) {
+        return ResponseEntity.ok(groupService.findByName(groupName));
     }
 
-    @GetMapping("/{groupId}/students/all-students")
-    public ResponseEntity<List<StudentResponse>> getAllStudents(@PathVariable Long groupId)
-    {
-        return ResponseEntity.ok(groupService.allStudents(groupId));
+    @GetMapping("/{groupName}/students/all-students")
+    public ResponseEntity<List<StudentResponse>> getAllStudents(@PathVariable String groupName) {
+        return ResponseEntity.ok(groupService.allStudents(groupName));
     }
 }

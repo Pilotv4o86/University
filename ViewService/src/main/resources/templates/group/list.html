@@ -28,13 +28,13 @@
         <td th:text="${group.formOfEducation}"></td>
         <td th:text="${group.speciality}"></td>
         <td>
-            <form th:action="@{/university/{groupId}/students/all-students(groupId=${group.id})}" th:method="GET" style="display:inline;">
+            <form th:action="@{/university/{groupName}/students/all-students(groupName=${group.name})}" th:method="GET" style="display:inline;">
                 <button type="submit" class="btn btn-view">View Students</button>
             </form>
-            <form th:action="@{/university/groups/{groupId}/edit(groupId=${group.id})}" th:method="GET" style="display:inline;">
+            <form th:action="@{/university/groups/{groupName}/edit(groupName=${group.name})}" th:method="GET" style="display:inline;">
                 <button type="submit" class="btn btn-edit">Edit</button>
             </form>
-            <form th:action="@{/university/groups/{groupId}/delete(groupId=${group.id})}" th:method="DELETE" style="display:inline;">
+            <form th:action="@{/university/groups/{groupName}/delete(groupName=${group.name})}" th:method="DELETE" style="display:inline;">
                 <button type="submit" class="btn btn-delete">Delete</button>
             </form>
         </td>

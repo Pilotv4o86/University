@@ -6,6 +6,7 @@ import com.example.studentservice.exception.StudentNotFoundException;
 import com.example.studentservice.mapper.StudentMapper;
 import com.example.studentservice.repository.StudentRepository;
 import com.example.studentservice.model.Student;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,19 +14,20 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
+@Transactional
 public class StudentService {
 
     private final StudentRepository studentRepository;
     private final StudentMapper studentMapper;
 
-    public List<StudentResponse> findAllByGroupId(Long groupId) {
-        return studentMapper.toStudentResponseList(studentRepository.findAllByGroupId(groupId));
+    public List<StudentResponse> findAllByGroupName(String groupName) {
+        return studentMapper.toStudentResponseList(studentRepository.findAllByGroupName((groupName)));
     }
 
-    public StudentResponse create(Long groupId,
+    public StudentResponse create(String groupName,
                                   StudentRequest studentRequest) {
         Student student = studentMapper.toStudent(studentRequest);
-        student.setGroupId(groupId);
+        student.setGroupName(groupName);
         student.setId(null);
         return studentMapper.toStudentResponse(studentRepository.save(student));
     }
@@ -47,11 +49,11 @@ public class StudentService {
         studentRepository.deleteById(id);
     }
 
-    public void deleteAllByGroupId(Long groupId) {
-        studentRepository.deleteAllByGroupId(groupId);
+    public void deleteAllByGroupName(String groupName) {
+        studentRepository.deleteAllByGroupName(groupName);
     }
 
-    public StudentResponse getByIdAndGroupId(Long id, Long groupId) {
+    public StudentResponse getByIdAndGroupName(Long id, String groupName) {
         Student student = studentRepository.findById(id).orElseThrow(() ->
                 new StudentNotFoundException("Student not found with id: " + id));
         return studentMapper.toStudentResponse(student);

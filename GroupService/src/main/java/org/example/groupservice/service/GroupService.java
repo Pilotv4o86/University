@@ -1,5 +1,6 @@
 package org.example.groupservice.service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.example.groupservice.dto.GroupResponse;
 import org.example.groupservice.dto.StudentResponse;
@@ -15,8 +16,8 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class GroupService
-{
+@Transactional
+public class GroupService {
     private final GroupRepository groupRepository;
     private final StudentService studentService;
     private final GroupMapper groupMapper;
@@ -26,40 +27,35 @@ public class GroupService
                 .map(groupMapper::toResponse).toList();
     }
 
-    public GroupResponse create(GroupRequest groupRequest)
-    {
+    public GroupResponse create(GroupRequest groupRequest) {
         Group group = groupMapper.toGroup(groupRequest);
-        if (groupRepository.findByName(group.getName()).isPresent())
-        {
+        if (groupRepository.findByName(group.getName()).isPresent()) {
             throw new DuplicateGroupException("Group with " + group.getName() + " already exists");
         }
         groupRepository.save(group);
         return groupMapper.toResponse(group);
     }
 
-    public void delete(Long groupId)
-    {
-        groupRepository.findById(groupId).orElseThrow(() ->
-                new GroupNotFoundException("Group not found with id: " + groupId));
-        studentService.deleteAllStudents(groupId);
-        groupRepository.deleteById(groupId);
+    public void delete(String groupName) {
+        Group group = groupRepository.findByName(groupName).orElseThrow(() ->
+                new GroupNotFoundException("Group not found with id: " + groupName));
+        studentService.deleteAllStudents(group.getName());
+        groupRepository.deleteByName(groupName);
 
     }
 
-    public GroupResponse update(Long id, GroupRequest updatedGroup)
-    {
-        Group oldGroup = groupRepository.getReferenceById(id);
+    public GroupResponse update(String groupName, GroupRequest updatedGroup) {
+        Group oldGroup = groupRepository.getReferenceByName(groupName);
         groupMapper.copyFields(oldGroup, updatedGroup);
         return groupMapper.toResponse(groupRepository.save(oldGroup));
     }
 
-    public GroupResponse findById(Long id) {
-        return groupMapper.toResponse(groupRepository.findById(id).orElseThrow(() ->
-                new GroupNotFoundException("Group not found with id: " + id)));
+    public GroupResponse findByName(String groupName) {
+        return groupMapper.toResponse(groupRepository.findByName(groupName).orElseThrow(() ->
+                new GroupNotFoundException("Group not found with name: " + groupName)));
     }
 
-    public List<StudentResponse> allStudents(Long groupId)
-    {
-        return studentService.getAllStudents(groupId);
+    public List<StudentResponse> allStudents(String groupName) {
+        return studentService.getAllStudents(groupName);
     }
-  }
+}

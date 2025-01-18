@@ -12,13 +12,13 @@ import java.util.List;
 public class StudentService
 {
     private StudentClient studentClient;
-    public void deleteAllStudents(Long groupId)
+    public void deleteAllStudents(String groupName)
     {
-        studentClient.deleteAllStudents(groupId);
+        studentClient.deleteAllStudents(groupName);
     }
 
-    public List<StudentResponse> getAllStudents(Long groupId)
+    public List<StudentResponse> getAllStudents(String groupName)
     {
-        return studentClient.allStudents(groupId);
+        return studentClient.allStudents(groupName);
     }
 }

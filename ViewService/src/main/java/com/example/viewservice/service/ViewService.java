@@ -19,40 +19,46 @@ public class ViewService {
         return groupService.getAllGroups();
     }
 
-    public List<StudentResponse> getAllStudents(Long groupId) {
+    public List<StudentResponse> getAllStudents(String groupId) {
         return studentService.getAllStudents(groupId);
     }
 
-    public StudentResponse createStudent(Long groupId, StudentRequest studentRequest) {
-        return studentService.create(groupId, studentRequest);
+    public StudentResponse createStudent(String groupName,
+                                         StudentRequest studentRequest) {
+        return studentService.create(groupName, studentRequest);
     }
 
-    public StudentResponse findByIdAndGroupId(Long studentId, Long groupId) {
-        return studentService.findByIdAndGroupId(studentId, groupId);
+    public StudentResponse getByIdAndGroupName(Long studentId,
+                                               String groupName) {
+        return studentService.getByIdAndGroupName(studentId, groupName);
     }
 
-    public StudentResponse updateStudent(Long studentId, Long groupId, StudentRequest studentRequest) {
-        return studentService.update(studentId, groupId, studentRequest);
+    public StudentResponse updateStudent(Long studentId,
+                                         String groupName,
+                                         StudentRequest studentRequest) {
+        return studentService.update(studentId, groupName, studentRequest);
     }
 
     public GroupResponse createGroup(GroupRequest groupRequest) {
         return groupService.create(groupRequest);
     }
 
-    public void deleteStudent(Long id, Long groupId) {
+    public void deleteStudent(Long id,
+                              Long groupId) {
         studentService.deleteById(id, groupId);
     }
 
-    public GroupResponse findGroupById(Long groupId) {
-        return groupService.getGroupById(groupId);
+    public GroupResponse getGroupByName(String groupName) {
+        return groupService.getGroupByName(groupName);
     }
 
-    public GroupResponse updateGroup(Long groupId, GroupRequest groupRequest) {
-        return groupService.update(groupId, groupRequest);
+    public GroupResponse updateGroup(String groupName,
+                                     GroupRequest groupRequest) {
+        return groupService.update(groupName, groupRequest);
     }
 
-    public void deleteGroup(Long groupId) {
-        groupService.delete(groupId);
+    public void deleteGroup(String groupName) {
+        groupService.delete(groupName);
     }
 
 }

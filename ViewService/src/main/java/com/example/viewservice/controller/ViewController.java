@@ -21,7 +21,7 @@ import java.util.List;
 public class ViewController {
     private final ViewService viewService;
 
-    @GetMapping("/home")
+    @GetMapping("")
     public String home() {
         return "home/home";
     }
@@ -35,8 +35,7 @@ public class ViewController {
 
     @PostMapping("/groups/create")
     public String createGroup(@Valid @ModelAttribute("group") GroupRequest groupRequest,
-                              BindingResult bindingResult,
-                              Model model) {
+                              BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "group/create";
         }
@@ -50,15 +49,16 @@ public class ViewController {
         return "group/create";
     }
 
-    @GetMapping("/groups/{groupId}/edit")
-    public String editGroupForm(@PathVariable Long groupId, Model model) {
-        GroupResponse groupResponse = viewService.findGroupById(groupId);
+    @GetMapping("/groups/{groupName}/edit")
+    public String editGroupForm(@PathVariable String groupName,
+                                Model model) {
+        GroupResponse groupResponse = viewService.getGroupByName(groupName);
         model.addAttribute("group", groupResponse);
         return "group/edit";
     }
 
-    @PutMapping("/groups/{groupId}/update")
-    public String updateGroup(@PathVariable Long groupId,
+    @PutMapping("/groups/{groupName}/update")
+    public String updateGroup(@PathVariable String groupName,
                               @Valid @ModelAttribute("group") GroupRequest groupRequest,
                               BindingResult bindingResult,
                               Model model) {
@@ -66,72 +66,76 @@ public class ViewController {
             model.addAttribute("group", groupRequest);
             return "group/edit";
         }
-        viewService.updateGroup(groupId, groupRequest);
+        viewService.updateGroup(groupName, groupRequest);
         return "redirect:/university/groups/all-groups";
     }
 
-    @DeleteMapping("/groups/{groupId}/delete")
-    public String deleteGroup(@PathVariable Long groupId) {
-        viewService.deleteGroup(groupId);
+    @DeleteMapping("/groups/{groupName}/delete")
+    public String deleteGroup(@PathVariable String groupName) {
+        viewService.deleteGroup(groupName);
         return "redirect:/university/groups/all-groups";
     }
 
-    @GetMapping("/{groupId}/students/all-students")
-    public String listStudents(@PathVariable Long groupId, Model model) {
-        List<StudentResponse> students = viewService.getAllStudents(groupId);
-        model.addAttribute("group", viewService.findGroupById(groupId));
+    @GetMapping("/{groupName}/students/all-students")
+    public String listStudents(@PathVariable String groupName,
+                               Model model) {
+        List<StudentResponse> students = viewService.getAllStudents(groupName);
+        model.addAttribute("group", viewService.getGroupByName(groupName));
         model.addAttribute("students", students);
         return "student/list";
     }
 
-    @PostMapping("/{groupId}/students/create")
-    public String createStudent(@PathVariable Long groupId,
+    @PostMapping("/{groupName}/students/create")
+    public String createStudent(@PathVariable String groupName,
                                 @Valid @ModelAttribute("student") StudentRequest studentRequest,
                                 BindingResult bindingResult,
                                 Model model) {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("groupId", groupId);
+            model.addAttribute("groupId", groupName);
             return "student/create";
         }
-        viewService.createStudent(groupId, studentRequest);
-        return "redirect:/university/{groupId}/students/all-students";
+        viewService.createStudent(groupName, studentRequest);
+        return "redirect:/university/{groupName}/students/all-students";
     }
 
-    @GetMapping("/{groupId}/students/save")
+    @GetMapping("/{groupName}/students/save")
     @PreAuthorize("hasAnyAuthority('DEAN', 'ADMIN')")
-    public String createStudentForm(@PathVariable Long groupId, Model model) {
+    public String createStudentForm(@PathVariable String groupName,
+                                    Model model) {
         StudentRequest studentRequest = new StudentRequest();
         model.addAttribute("student", studentRequest);
-        model.addAttribute("groupId", groupId);
+        model.addAttribute("groupName", groupName);
         return "student/create";
     }
 
-    @GetMapping("/{groupId}/students/{id}/edit")
-    @PreAuthorize("hasAnyAuthority('DEAN', 'ADMIN')")
-    public String editStudentForm(@PathVariable Long id, @PathVariable Long groupId, Model model) {
-        StudentResponse studentResponse = viewService.findByIdAndGroupId(id, groupId);
+    @GetMapping("/{groupName}/students/{id}/edit")
+    public String editStudentForm(@PathVariable Long id,
+                                  @PathVariable String groupName,
+                                  Model model) {
+        StudentResponse studentResponse = viewService.getByIdAndGroupName(id, groupName);
         model.addAttribute("student", studentResponse);
-        model.addAttribute("groupId", groupId);
+        model.addAttribute("groupName", groupName);
         return "student/edit";
     }
 
-    @PutMapping("/{groupId}/students/{id}/update")
-    public String updateStudent(@PathVariable Long groupId,
+    @PutMapping("/{groupName}/students/{id}/update")
+    public String updateStudent(@PathVariable String groupName,
                                 @PathVariable Long id,
                                 @Valid @ModelAttribute("student") StudentRequest studentRequest,
                                 BindingResult bindingResult,
                                 Model model) {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("groupId", groupId);
+            model.addAttribute("groupName", groupName);
             return "student/edit";
         }
-        viewService.updateStudent(id, groupId, studentRequest);
-        return "redirect:/university/{groupId}/students/all-students";
+        viewService.updateStudent(id, groupName, studentRequest);
+        return "redirect:/university/{groupName}/students/all-students";
     }
 
-    @DeleteMapping("/{groupId}/students/{id}/delete")
-    public String deleteStudent(@PathVariable Long id, @PathVariable Long groupId) {
-        viewService.deleteStudent(id, groupId);
-        return "redirect:/university/{groupId}/students/all-students";
+    @DeleteMapping("/{groupName}/students/{id}/delete")
+    public String deleteStudent(@PathVariable Long id,
+                                @PathVariable Long groupName) {
+        viewService.deleteStudent(id, groupName);
+        return "redirect:/university/{groupName}/students/all-students";
     }
 }

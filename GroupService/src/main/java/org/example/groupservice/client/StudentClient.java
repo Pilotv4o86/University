@@ -11,8 +11,8 @@ import java.util.List;
 @FeignClient(name = "StudentService")
 public interface StudentClient
 {
-    @DeleteMapping("/{groupId}/students/all-delete")
-    void deleteAllStudents(@PathVariable("groupId") Long groupId);
-    @GetMapping("/{groupId}/students/all-students")
-    List<StudentResponse> allStudents(@PathVariable("groupId") Long groupId);
+    @DeleteMapping("/{groupName}/students/all-delete")
+    void deleteAllStudents(@PathVariable("groupName") String groupName);
+    @GetMapping("/{groupName}/students/all-students")
+    List<StudentResponse> allStudents(@PathVariable("groupName") String groupName);
 }

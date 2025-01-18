@@ -1,6 +1,6 @@
 package org.example.groupservice.exception;
 
-import org.example.groupservice.controllers.GroupController;
+import org.example.groupservice.controller.GroupController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

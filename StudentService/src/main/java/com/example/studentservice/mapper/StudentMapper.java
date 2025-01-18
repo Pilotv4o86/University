@@ -10,18 +10,15 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-public class StudentMapper
-{
+public class StudentMapper {
     private final ModelMapper modelMapper = new ModelMapper();
 
-    public StudentResponse toStudentResponse(Student student)
-    {
+    public StudentResponse toStudentResponse(Student student) {
         return modelMapper.map(student, StudentResponse.class);
     }
 
 
-    public Student toStudent(StudentRequest studentRequest)
-    {
+    public Student toStudent(StudentRequest studentRequest) {
         modelMapper.getConfiguration().setSkipNullEnabled(true);
         return modelMapper.map(studentRequest, Student.class);
     }
@@ -34,8 +31,7 @@ public class StudentMapper
                 .toList();
     }
 
-    public void copyFields(Student student, StudentRequest studentRequest)
-    {
+    public void copyFields(Student student, StudentRequest studentRequest) {
         modelMapper.getConfiguration().setSkipNullEnabled(true);
         modelMapper.map(studentRequest, student);
     }

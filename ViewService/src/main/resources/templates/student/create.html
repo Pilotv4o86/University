@@ -7,7 +7,7 @@
 <body>
 <h1>Добавить студента</h1>
 
-<form th:action="@{/university/{groupId}/students/create (groupId=${groupId})}" th:object="${student}" th:method="POST">
+<form th:action="@{/university/{groupName}/students/create (groupName=${groupName})}" th:object="${student}" th:method="POST">
   <div>
     <label for="surname">Фамилия</label>
     <input type="text" id="surname" th:field="*{surname}" />
