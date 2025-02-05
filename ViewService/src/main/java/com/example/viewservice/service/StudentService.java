@@ -1,8 +1,8 @@
 package com.example.viewservice.service;
 
 import com.example.viewservice.client.StudentClient;
-import com.example.viewservice.dto.StudentRequest;
-import com.example.viewservice.dto.StudentResponse;
+import com.example.viewservice.dto.student.StudentRequest;
+import com.example.viewservice.dto.student.StudentResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

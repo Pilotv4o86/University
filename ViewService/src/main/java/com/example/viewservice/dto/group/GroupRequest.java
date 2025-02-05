@@ -1,9 +1,7 @@
-package com.example.viewservice.dto;
+package com.example.viewservice.dto.group;
 
 import jakarta.validation.constraints.*;
 import lombok.Data;
-
-import java.util.List;
 
 @Data
 public class GroupRequest

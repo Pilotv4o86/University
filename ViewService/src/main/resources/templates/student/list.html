@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <title>Students</title>
     <link rel="stylesheet" href="/css/List.css">
@@ -12,7 +12,7 @@
         </form>
     </div>
     <h1 th:text="'Students List ' + ${group.name}"></h1>
-    <form th:action="@{/university/{groupName}/students/save(groupName=${groupName})}" th:method="GET" style="display:inline;">
+    <form th:action="@{/university/{groupName}/students/create(groupName=${groupName})}" th:method="GET" style="display:inline;">
         <button type="submit" class="btn btn-create">Create Student</button>
     </form>
 </div>
@@ -20,13 +20,48 @@
 <table>
     <thead>
     <tr>
-        <th>Surname</th>
-        <th>First Name</th>
-        <th>Patronymic</th>
-        <th>Gender</th>
-        <th>Birthday</th>
-        <th>Form of Education</th>
-        <th>Number of Failed Exams</th>
+        <th>
+            <a th:href="@{/university/{groupName}/students/all-students(groupName=${groupName},sortBy='surname',order=${currentOrder == 'asc' ? 'desc' : 'asc'})}">
+                Surname
+                <span th:if="${currentSort == 'surname'}" th:text="${currentOrder == 'asc' ? '▲' : '▼'}"></span>
+            </a>
+        </th>
+        <th>
+            <a th:href="@{/university/{groupName}/students/all-students(groupName=${groupName},sortBy='firstName',order=${currentOrder == 'asc' ? 'desc' : 'asc'})}">
+                First Name
+                <span th:if="${currentSort == 'firstName'}" th:text="${currentOrder == 'asc' ? '▲' : '▼'}"></span>
+            </a>
+        </th>
+        <th>
+            <a th:href="@{/university/{groupName}/students/all-students(groupName=${groupName},sortBy='patronymic',order=${currentOrder == 'asc' ? 'desc' : 'asc'})}">
+                Patronymic
+                <span th:if="${currentSort == 'patronymic'}" th:text="${currentOrder == 'asc' ? '▲' : '▼'}"></span>
+            </a>
+        </th>
+        <th>
+            <a th:href="@{/university/{groupName}/students/all-students(groupName=${groupName},sortBy='gender',order=${currentOrder == 'asc' ? 'desc' : 'asc'})}">
+                Gender
+                <span th:if="${currentSort == 'gender'}" th:text="${currentOrder == 'asc' ? '▲' : '▼'}"></span>
+            </a>
+        </th>
+        <th>
+            <a th:href="@{/university/{groupName}/students/all-students(groupName=${groupName},sortBy='birthday',order=${currentOrder == 'asc' ? 'desc' : 'asc'})}">
+                Birthday
+                <span th:if="${currentSort == 'birthday'}" th:text="${currentOrder == 'asc' ? '▲' : '▼'}"></span>
+            </a>
+        </th>
+        <th>
+            <a th:href="@{/university/{groupName}/students/all-students(groupName=${groupName},sortBy='formOfEducation',order=${currentOrder == 'asc' ? 'desc' : 'asc'})}">
+                Form of Education
+                <span th:if="${currentSort == 'formOfEducation'}" th:text="${currentOrder == 'asc' ? '▲' : '▼'}"></span>
+            </a>
+        </th>
+        <th>
+            <a th:href="@{/university/{groupName}/students/all-students(groupName=${groupName},sortBy='numberOfFailedExams',order=${currentOrder == 'asc' ? 'desc' : 'asc'})}">
+                Number of Failed Exams
+                <span th:if="${currentSort == 'numberOfFailedExams'}" th:text="${currentOrder == 'asc' ? '▲' : '▼'}"></span>
+            </a>
+        </th>
         <th>Actions</th>
     </tr>
     </thead>

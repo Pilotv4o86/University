@@ -1,8 +1,8 @@
 package com.example.viewservice.service;
 
 import com.example.viewservice.client.GroupClient;
-import com.example.viewservice.dto.GroupRequest;
-import com.example.viewservice.dto.GroupResponse;
+import com.example.viewservice.dto.group.GroupRequest;
+import com.example.viewservice.dto.group.GroupResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

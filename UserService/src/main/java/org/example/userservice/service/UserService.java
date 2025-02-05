@@ -1,36 +1,34 @@
 package org.example.userservice.service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.example.userservice.dto.CreateUserRequest;
+import org.example.userservice.dto.user.CreateUserRequest;
 import org.example.userservice.error.ErrorMessages;
 import org.example.userservice.exception.DuplicateResourceException;
 import org.example.userservice.exception.ResourceNotFoundException;
 import org.example.userservice.mapper.UserMapper;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import org.example.userservice.model.User;
 import org.example.userservice.repository.UserRepository;
-import org.example.userservice.dto.UserResponse;
-import org.example.userservice.model.Role;
-import org.example.userservice.dto.UpdateUserRequest;
+import org.example.userservice.dto.user.UserResponse;
+import org.example.userservice.dto.user.UpdateUserRequest;
 
 import java.util.List;
-import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class UserService{
 
     private final UserMapper userMapper;
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
 
     public UserResponse register(CreateUserRequest createUserRequest) {
         checkUserExistenceByUsernameAndThrow(createUserRequest.getUsername());
 
         User user = userMapper.fromCreatetoUser(createUserRequest);
-        user.setPassword(passwordEncoder.encode(createUserRequest.getPassword()));
-        user.setRoles(Set.of(Role.ROLE_STUDENT));
+        user.setPassword(BCrypt.hashpw(createUserRequest.getPassword(), BCrypt.gensalt()));
         return userMapper.toUserResponse(userRepository.save(user));
     }
 
@@ -42,9 +40,8 @@ public class UserService{
         return userMapper.toUserResponse(updatedUser);
     }
 
-    public void disableUser(Long id) {
-        User user = findUserByIdOrThrow(id);
-        userRepository.save(user);
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
     }
 
     public UserResponse getUserById(Long id) {
@@ -55,7 +52,7 @@ public class UserService{
     public UserResponse getUserByUsername(String username) {
         checkUserExistenceByUsernameOrThrow(username);
         //System.out.println("avbhlaebrhliebhiaebrhiaebuieauiebui");
-        return userMapper.toUserResponse(userRepository.findByUsername(username));
+        return userMapper.toUserResponse(userRepository.findByUsername(username).orElseThrow(() -> new ResourceNotFoundException("User not found")));
     }
 
     public List<UserResponse> getAllUsers() {

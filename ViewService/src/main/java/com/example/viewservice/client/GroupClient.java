@@ -1,7 +1,7 @@
 package com.example.viewservice.client;
 
-import com.example.viewservice.dto.GroupRequest;
-import com.example.viewservice.dto.GroupResponse;
+import com.example.viewservice.dto.group.GroupRequest;
+import com.example.viewservice.dto.group.GroupResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 

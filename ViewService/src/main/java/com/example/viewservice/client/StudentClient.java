@@ -1,7 +1,7 @@
 package com.example.viewservice.client;
 
-import com.example.viewservice.dto.StudentRequest;
-import com.example.viewservice.dto.StudentResponse;
+import com.example.viewservice.dto.student.StudentRequest;
+import com.example.viewservice.dto.student.StudentResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;

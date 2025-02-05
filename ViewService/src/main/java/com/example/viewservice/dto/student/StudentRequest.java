@@ -1,4 +1,4 @@
-package com.example.viewservice.dto;
+package com.example.viewservice.dto.student;
 
 import jakarta.validation.constraints.*;
 import lombok.Data;

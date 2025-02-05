@@ -1,23 +1,48 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <title>Groups</title>
-    <link rel="stylesheet" href="/css/List.css"> <!-- Подключаем CSS -->
+    <link rel="stylesheet" href="/css/List.css">
 </head>
 <body>
 <div class="header">
+    <div class="navigation">
+        <form th:action="@{/university/home}" th:method="GET" style="display:inline;">
+            <button type="submit" class="btn btn-back">Back Home</button>
+        </form>
+    </div>
     <h1>Groups List</h1>
-    <form th:action="@{/university/groups/save}" th:method="GET" style="display:inline;">
+    <form th:action="@{/university/groups/create}" th:method="GET" style="display:inline;">
         <button type="submit" class="btn btn-create">Create New Group</button>
     </form>
 </div>
 <table>
     <thead>
     <tr>
-        <th>Course</th>
-        <th>Name</th>
-        <th>Form of Education</th>
-        <th>Speciality</th>
+        <th>
+            <a th:href="@{/university/groups/all-groups(sortBy='course', order=${currentOrder == 'asc' ? 'desc' : 'asc'})}">
+                Course
+                <span th:if="${currentSort == 'course'}" th:text="${currentOrder == 'asc' ? '▲' : '▼'}"></span>
+            </a>
+        </th>
+        <th>
+            <a th:href="@{/university/groups/all-groups(sortBy='name', order=${currentOrder == 'asc' ? 'desc' : 'asc'})}">
+                Name
+                <span th:if="${currentSort == 'name'}" th:text="${currentOrder == 'asc' ? '▲' : '▼'}"></span>
+            </a>
+        </th>
+        <th>
+            <a th:href="@{/university/groups/all-groups(sortBy='formOfEducation', order=${currentOrder == 'asc' ? 'desc' : 'asc'})}">
+                Form of Education
+                <span th:if="${currentSort == 'formOfEducation'}" th:text="${currentOrder == 'asc' ? '▲' : '▼'}"></span>
+            </a>
+        </th>
+        <th>
+            <a th:href="@{/university/groups/all-groups(sortBy='speciality', order=${currentOrder == 'asc' ? 'desc' : 'asc'})}">
+                Speciality
+                <span th:if="${currentSort == 'speciality'}" th:text="${currentOrder == 'asc' ? '▲' : '▼'}"></span>
+            </a>
+        </th>
         <th>Actions</th>
     </tr>
     </thead>

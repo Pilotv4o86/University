@@ -1,11 +1,9 @@
-package org.example.userservice.dto;
+package org.example.userservice.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.example.userservice.model.Role;
-
-import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -13,5 +11,5 @@ import java.util.Set;
 public class UpdateUserRequest {
     private String username;
     private String password;
-    private Set<Role> roles;
+    private Role role;
 }

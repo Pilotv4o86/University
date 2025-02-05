@@ -1,8 +1,6 @@
-package com.example.viewservice.dto;
+package com.example.viewservice.dto.group;
 
 import lombok.Data;
-
-import java.util.List;
 
 @Data
 public class GroupResponse

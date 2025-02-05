@@ -1,4 +1,4 @@
-package org.example.userservice.dto;
+package org.example.userservice.dto.user;
 
 import lombok.*;
 
@@ -8,6 +8,5 @@ import lombok.*;
 public class UserResponse {
     private Long id;
     private String username;
-    private String accessToken;
-    private String refreshToken;
+    private String role;
 }

@@ -1,4 +1,4 @@
-package com.example.viewservice.dto;
+package com.example.viewservice.dto.student;
 import lombok.Data;
 
 import java.time.LocalDate;

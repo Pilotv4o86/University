@@ -1,14 +1,11 @@
 package org.example.userservice.mapper;
 
-import org.example.userservice.dto.CreateUserRequest;
-import org.example.userservice.dto.UpdateUserRequest;
-import org.example.userservice.dto.UserResponse;
+import org.example.userservice.dto.user.CreateUserRequest;
+import org.example.userservice.dto.user.UpdateUserRequest;
+import org.example.userservice.dto.user.UserResponse;
 import org.example.userservice.model.User;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 public class UserMapper {

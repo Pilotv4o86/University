@@ -6,10 +6,16 @@ spring:
     url: jdbc:mysql://localhost/students_db
     username: root
     password: admin
+    hikari:
+      max-lifetime: 1800000
+      minimum-idle: 5
+      connection-timeout: 20000
+
 
   jpa:
     hibernate:
       ddl-auto: update
+
 
 eureka:
   client:

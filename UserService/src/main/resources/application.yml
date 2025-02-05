@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: UserService
+  datasource:
+    url: jdbc:mysql://localhost/users_db
+    username: root
+    password: admin
+
+    hikari:
+      max-lifetime: 1800000
+      minimum-idle: 5
+      connection-timeout: 20000
+
+  jpa:
+      hibernate:
+        ddl-auto: update
+
+eureka:
+    client:
+      serviceUrl:
+        defaultZone: http://localhost:8761/eureka/
+        registerWithEureka: true
+        fetchRegistry: true
+
+server:
+    port: 8083

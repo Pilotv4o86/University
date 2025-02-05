@@ -1,9 +1,9 @@
-package org.example.userservice.dto;
+package com.example.viewservice.dto.user;
 
 import lombok.Data;
 
 @Data
-public class CreateUserRequest {
+public class LoginUserRequest {
     private String username;
     private String password;
 }
