@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>Edit User</title>
+</head>
+<body>
+<h1>Register user</h1>
+<form th:action="@{/users/{id}/update(id=${user.id})}" th:method="POST" th:object="${user}">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" th:field="*{username}" readonly>
+
+    <label for="role">Role:</label>
+    <select id="role" name="role" th:field="*{role}">
+        <option th:each="role : ${roles}" th:value="${role}" th:text="${role}"
+                th:if="${role == user.role}" selected="selected"></option>
+        <option th:each="role : ${roles}" th:value="${role}" th:text="${role}"
+                th:if="${role != user.role}"></option>
+    </select>
+
+    <button type="submit">Update</button>
+</form>
+<a href="/users/all">Back to User List</a>
+</body>
+</html>
